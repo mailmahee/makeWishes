@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{product.name}}</title>
+    {% include './header.html' %}
+  </head>
+  <body>
+    <div class="container">
+      {% include './logout.html' %}
+      <center>
+        <h1>View Item</h1>
+      </center>
+              <h2>{{product.name}} </h2><br /><br /><br />
+      <u><h3>About the Product:</h3></u>
+      <h4>{{product.description.capitalize}}</h4><br /><br /><br />
+
+      <div>
+              <br /><h4>List of Users who like this product</h4>
+              <table class="table table-striped">
+                <thead class="thead-inverse">
+                  <th>Name</th>
+                  <th>Wish Create date</th>
+                </thead>
+                {% for wisher in wishers %}
+                <tr>
+                  <td>{{wisher.user.name}}</td>
+                  <td>{{wisher.updated_at}}</td>
+                </tr>
+                {% endfor %}
+              </table>
+      </div>
+
+  </body>
+</html>

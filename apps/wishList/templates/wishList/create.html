@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Create Item</title>
+    {% include './header.html' %}
+  </head>
+  <body>
+    <div class="container">
+      {% include './logout.html' %}
+      {% if messages %}
+        {% for message in messages %}
+         {% if 'creating_product' in message.tags %}
+                <span class="error" style="color:red";>{{ message }}</span><br />
+        {%endif%}
+        {% endfor %}
+       {% endif %}
+      <h3>Create a New Wish List item</h3>
+    <form action="/create" method="post">
+      {% csrf_token %}
+
+      <div class='form-group'>
+          <label for='product'>Item/Product:
+          </label>
+          <input class="form-control" type="text" name="product" id='product'/>
+      </div>
+      <div class="form-group">
+        <label for="desc">Description:</label>
+        <textarea cols="40" rows="4" name="desc" class="form-control"></textarea>
+      </div>
+        <button type="submit" class="btn btn-success pull-right">Add</button>
+    </form>
+    <div>
+            <br /><h4><span class="heading" style="color:blue";>Searching for new Product ideas to wish for?</span><br /> <br /> Here is a list of all the products added to date:</h4>
+            <table class="table table-striped">
+              <thead class="thead-inverse">
+                <th>Product</th>
+                <th>Description</th>
+              </thead>
+              {% for product in products %}
+              <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+              </tr>
+              {% endfor %}
+            </table>
+    </div>
+      </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My Wish List</title>
+    {% include './header.html' %}
+  </head>
+  <body>
+    <div class="container">
+      {% include './logoutindex.html' %}
+      <div>
+        {% if messages %}
+          {% for message in messages %}
+           {% if 'dashboard' in message.tags %}
+                  <span class="error" style="color:red";>{{ message }}</span>
+          {%endif%}
+          {% endfor %}
+         {% endif %}
+        <h3>My Wish List</h3>
+        <table class="table table-striped">
+          <thead class="thead-inverse">
+            <th>Item</th>
+            <th>Added by</th>
+            <th>Date added</th>
+            <th>Action</th>
+          </thead>
+          {% for mywish in mywishes %}
+          <tr>
+
+            <td><u><a href="/wish_items/{{mywish.product.id}}">{{mywish.product.name}}</a></td>
+            <td>{{mywish.user.name}}</td>
+            <td>{{mywish.created_at}}</td>
+            <td><a href="/remove/{{mywish.product.id}}">Remove from my wishlist</a></td>
+
+          </tr>
+          {% endfor %}
+        </table>
+      </div> <br />
+
+    <div>
+            <h3>Other user's Wish List</h3>
+            <table class="table table-striped">
+              <thead class="thead-inverse">
+                <th>Item</th>
+                <th>Added by</th>
+                <th>Date added</th>
+                <th>Action</th>
+              </thead>
+              {% for otherwish in otherwishes %}
+              <tr>
+
+                <td><u><a href="/wish_items/{{otherwish.product.id}}/">{{otherwish.product.name}}</a></td>
+                <td>{{otherwish.user.name}}</td>
+                <td>{{otherwish.created_at}}</td>
+                <td><a href="/addtomylist/{{otherwish.product.id}}/{{otherwish.user.uname}}">Add to my wishlist</a></td>
+
+              </tr>
+              {% endfor %}
+            </table>
+    </div>
+
+    <a href="/wish_item/create" class="btn btn-primary pull-right">Add Item</a>
+    </div>
+  </body>
+</html>
